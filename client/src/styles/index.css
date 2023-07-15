@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+.mainBody {
+  height: calc(100vh - 70px);
+  display: flex;
+  overflow: hidden;
+}
+
+@import url('./header.css');
+@import url('./sidebar.css');
+@import url('./item.css');
+@import url('./loading.css');
+@import url('./audio.css');
+
+@media (max-width: 425px) {
+  .header__search {
+    display: none;
+  }
+
+  .header__icons .material-icons {
+    display: none;
+  }
+
+  .header__icons .display-this {
+    display: inline;
+  }
+
+  .header__icons .accountCircle {
+    display: inline;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .loading__screen svg {
+    left: 35%;
+  }
+}
+
+@media (max-width: 768px) {
+  .header__search {
+    display: none;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .show-sidebar {
+    display: inline;
+    position: fixed;
+    top: 4.4rem;
+    height: auto;
+  }
+
+  .loading__screen svg {
+    left: 35%;
+  }
+}
+
+@media (max-width: 941px) {
+  .header__search input {
+    width: 300px;
+  }
+  .loading__screen svg {
+    left: 35%;
+  }
+}

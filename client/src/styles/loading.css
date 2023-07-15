@@ -1,0 +1,25 @@
+.loading__screen {
+    background: #e74c3c;
+    width: 100vw;
+    height: 100vh;
+    text-align: center;
+    font-family: 'Comfortaa', cursive;
+}
+
+.loading__screen svg,
+.data_loading svg {
+    width: 100px;
+    height: 100px;
+    display:inline-block;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.data_loading {
+    position: absolute;
+    top: 50%;
+    z-index: 99;
+}
