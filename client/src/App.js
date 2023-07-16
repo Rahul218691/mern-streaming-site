@@ -7,10 +7,12 @@ import Sidebar from 'components/Sidebar'
 const Home = lazy(() => import('./pages/Home'))
 const Podcasts = lazy(() => import('./pages/Podcasts'))
 const AuthPage = lazy(() => import('./pages/Login'))
+const AdminHome = lazy(() => import('./pages/admin/AdminHome'))
 
 const App = () => {
 
   const [isOpenSideMenu, setIsOpenSideMenu] = useState(false)
+  const [isAdmin] = useState(true)
 
   const handleToggleSideMenu = useCallback(() => {
     setIsOpenSideMenu((prev) => !prev)
@@ -18,13 +20,14 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <Header onToggleSideMenu={handleToggleSideMenu} />
+      {!isAdmin && <Header onToggleSideMenu={handleToggleSideMenu} />}
       <div className='mainBody'>
-        <Sidebar isOpen={isOpenSideMenu} onToggleSideMenu={handleToggleSideMenu} />
+        {!isAdmin && <Sidebar isOpen={isOpenSideMenu} onToggleSideMenu={handleToggleSideMenu} />}
       <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/podcasts' element={<Podcasts />} />
           <Route path='/login' element={<AuthPage />} />
+          <Route path='/admin/home' element={<AdminHome />} />
       </Routes>
       </div>
     </BrowserRouter>
