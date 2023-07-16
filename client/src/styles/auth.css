@@ -1,9 +1,9 @@
 .auth_wrapper {
     width: 50%;
 	height: 500px;
-	background: red;
+	/* background: red; */
 	overflow: hidden;
-	background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+	/* background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e); */
 	border-radius: 10px;
 	box-shadow: 5px 20px 50px #000;
     margin: auto;
@@ -20,7 +20,7 @@
 }
 
 .auth_wrapper label {
-    color: #fff;
+    color: #573b8a;
 	font-size: 2.3em;
 	justify-content: center;
 	display: flex;
@@ -67,7 +67,7 @@
 
 .auth_wrapper .login {
     height: 460px;
-	background: #eee;
+	background: #ccc;
 	border-radius: 60% / 10%;
 	transform: translateY(-180px);
 	transition: .8s ease-in-out;
