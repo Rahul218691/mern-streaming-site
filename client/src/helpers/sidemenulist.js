@@ -1,19 +1,44 @@
-export const SideMenuList = {
-    menu1: [
+import { randomNumber } from "utils"
+
+const unAuthorizedRoutes = [
         {
-            id: 1,
+            id: randomNumber(),
             title: 'Home',
             icon: 'home',
             path: '/'
         },
         {
-            id: 2,
+            id: randomNumber(),
             title: 'Podcasts',
             icon: 'podcasts',
             path: '/podcasts'
+        },
+        {
+            id: randomNumber(),
+            title: 'Live Stream',
+            icon: 'live_tv',
+            path: '/liveStream'
         }
-    ],
-    menu2: [
-        
-    ]
+]
+
+export const SideMenuList = (isAuthenticated) => {
+     const routes = [...unAuthorizedRoutes]
+     if (isAuthenticated) {
+        routes.push({
+            id: randomNumber(),
+            title: 'Logout',
+            icon: 'logout',
+            path: '',
+            isLogoutRoute: true
+        })
+     } else {
+        routes.push({
+            id: randomNumber(),
+            title: 'Login',
+            icon: 'login',
+            path: '/login'
+        })
+     }
+
+     return routes
 }

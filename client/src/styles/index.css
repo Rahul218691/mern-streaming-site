@@ -21,6 +21,7 @@ body {
 @import url('./item.css');
 @import url('./loading.css');
 @import url('./audio.css');
+@import url('./auth.css');
 
 @media (max-width: 425px) {
   .header__search {
@@ -46,6 +47,11 @@ body {
   .loading__screen svg {
     left: 35%;
   }
+  .auth_wrapper {
+    box-shadow: none;
+    width: 100%;
+    margin-top: 30px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -66,6 +72,9 @@ body {
 
   .loading__screen svg {
     left: 35%;
+  }
+  .auth_wrapper {
+    width: 100%;
   }
 }
 

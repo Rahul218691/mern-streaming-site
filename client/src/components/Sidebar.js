@@ -20,18 +20,7 @@ const Sidebar = ({
         <div className={`sidebar ${isOpen ? 'show-sidebar' : ''}`}>
             <div className="sidebar__categories">
                 {
-                    SideMenuList.menu1.map((menu) => (
-                        <div className={`sidebar__category ${location.pathname === menu.path ? 'active' : ''}`} key={menu.id} onClick={() => handleRedirectToPage(menu.path)}>
-                            <i className="material-icons">{menu.icon}</i>
-                            <span>{menu.title}</span>
-                        </div>       
-                    ))
-                }
-            </div>
-            <hr />
-            <div className="sidebar__categories">
-                {
-                    SideMenuList.menu2.map((menu) => (
+                    SideMenuList(false).map((menu) => (
                         <div className={`sidebar__category ${location.pathname === menu.path ? 'active' : ''}`} key={menu.id} onClick={() => handleRedirectToPage(menu.path)}>
                             <i className="material-icons">{menu.icon}</i>
                             <span>{menu.title}</span>

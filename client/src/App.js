@@ -6,6 +6,7 @@ import Sidebar from 'components/Sidebar'
 
 const Home = lazy(() => import('./pages/Home'))
 const Podcasts = lazy(() => import('./pages/Podcasts'))
+const AuthPage = lazy(() => import('./pages/Login'))
 
 const App = () => {
 
@@ -23,6 +24,7 @@ const App = () => {
       <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/podcasts' element={<Podcasts />} />
+          <Route path='/login' element={<AuthPage />} />
       </Routes>
       </div>
     </BrowserRouter>
