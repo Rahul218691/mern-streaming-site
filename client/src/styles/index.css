@@ -39,6 +39,15 @@ body.dark {
 	--dark: #FBFBFB;
 }
 
+.required__asterisk {
+    margin-left: 5px;
+    color: crimson;
+}
+
+.error__message {
+    color: crimson;
+}
+
 .mainBody {
   height: calc(100vh - 70px);
   display: flex;
@@ -56,6 +65,7 @@ a {
 @import url('./audio.css');
 @import url('./auth.css');
 @import url('./admin.css');
+@import url('./pagination.css');
 
 @media (max-width: 425px) {
   .header__search {

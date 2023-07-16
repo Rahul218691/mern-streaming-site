@@ -21,9 +21,8 @@ const AdminNavBar = ({
     return (
         <nav>
             <i className='bx bx-menu' onClick={onToggleMenu}></i>
-            {/* <Link to="#" className="nav-link">Categories</Link> */}
             <form style={{
-              visibility: 'hidden'  
+                visibility: 'hidden'
             }}>
                 <div className="form-input">
                     <input type="search" placeholder="Search..." />

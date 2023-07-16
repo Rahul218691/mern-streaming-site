@@ -42,3 +42,59 @@ export const SideMenuList = (isAuthenticated) => {
 
      return routes
 }
+
+
+export const ADMIN_MENU_LINKS = {
+    commonList: [
+        {
+            id: randomNumber(),
+            title: 'Dashboard',
+            icon: 'bxs-dashboard',
+            path: '/admin/home'
+        },
+        {
+            id: randomNumber(),
+            title: 'My Store',
+            icon: 'bxs-shopping-bag-alt',
+            path: ''
+        },
+        {
+            id: randomNumber(),
+            title: 'Analytics',
+            icon: 'bxs-doughnut-chart',
+            path: ''
+        },
+        {
+            id: randomNumber(),
+            title: 'My Store',
+            icon: 'bxs-shopping-bag-alt',
+            path: ''
+        },
+        {
+            id: randomNumber(),
+            title: 'Message',
+            icon: 'bxs-message-dots',
+            path: ''
+        },
+        {
+            id: randomNumber(),
+            title: 'Team',
+            icon: 'bxs-group',
+            path: ''
+        }
+    ],
+    settingsList: [
+        {
+            id: randomNumber(),
+            title: 'Settings',
+            icon: 'bxs-cog',
+            path: ''
+        },
+        {
+            id: randomNumber(),
+            title: 'Logout',
+            icon: 'bxs-log-out-circle',
+            path: ''
+        }
+    ]
+}

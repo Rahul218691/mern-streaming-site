@@ -12,7 +12,7 @@ const AdminHome = lazy(() => import('./pages/admin/AdminHome'))
 const App = () => {
 
   const [isOpenSideMenu, setIsOpenSideMenu] = useState(false)
-  const [isAdmin] = useState(true)
+  const [isAdmin] = useState(false)
 
   const handleToggleSideMenu = useCallback(() => {
     setIsOpenSideMenu((prev) => !prev)

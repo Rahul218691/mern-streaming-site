@@ -1,9 +1,10 @@
 import React, { useCallback, useState } from 'react'
 import AdminSideBar from './AdminSideBar'
 import AdminNavBar from './AdminNavBar'
-import AdminInfoBox from './AdminInfoBox'
 
-const AdminWrapper = () => {
+const AdminWrapper = ({
+    children
+}) => {
 
     const [toggleMenu, setToggleMenu] = useState(true)
 
@@ -17,7 +18,7 @@ const AdminWrapper = () => {
         <section id="content">
             <AdminNavBar onToggleMenu={handleToggleMenuBar} />
             <main>
-                <AdminInfoBox />
+                {children}
             </main>
         </section>
     </>
