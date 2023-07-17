@@ -343,9 +343,80 @@
 /* CONTENT */
 
 
+.table-data form .form-input {
+	display: flex;
+	align-items: center;
+	height: 36px;
+}
+.table-data form .form-input input {
+	flex-grow: 1;
+	padding: 0 16px;
+	height: 100%;
+	border: none;
+	background: var(--grey);
+	border-radius: 36px 0 0 36px;
+	outline: none;
+	width: 100%;
+	color: var(--dark);
+}
+.table-data form .form-input button {
+	width: 36px;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: var(--blue);
+	color: var(--light);
+	font-size: 18px;
+	border: none;
+	outline: none;
+	border-radius: 0 36px 36px 0;
+	cursor: pointer;
+}
 
 
 
+
+.table__add__data {
+	border-radius: 20px;
+	background: var(--light);
+	padding: 24px;
+}
+
+.table__add__data .add__link__fields .form-label {
+	color: var(--dark);
+}
+
+.table__add__data .add__data__header {
+	display: flex;
+	justify-content: space-between;
+}
+
+.table__add__data .add__data__header .bx {
+	cursor: pointer;
+	color: var(--dark);
+	font-size: 20px;
+}
+
+.table__add__data .add__data__header > h4 {
+	color: var(--dark);	
+}
+
+.form__buttons {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.form__buttons .common__button {
+	width: auto;
+	outline: none;
+	border: none;
+	background: var(--blue);
+	color: var(--dark);
+	border-radius: 10px;
+	padding: .5rem;
+	margin: .5rem;
+}
 
 
 

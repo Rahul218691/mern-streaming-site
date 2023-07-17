@@ -1,13 +1,14 @@
 import React from 'react'
+import { Label } from 'reactstrap'
 
 const CustomLabel = ({
     label = '',
     isRequired = false
 }) => {
   return (
-    <label>
+    <Label>
         {label} { isRequired && <span className='required__asterisk'>*</span> }
-    </label>
+    </Label>
   )
 }
 

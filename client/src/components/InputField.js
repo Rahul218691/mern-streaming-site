@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { FormGroup, Input, Label } from 'reactstrap'
 
 const InputField = ({
     isLabelRequired = false,
@@ -19,14 +20,14 @@ const InputField = ({
   return (
     <FormGroup>
         {
-            isLabelRequired && <label>
+            isLabelRequired && <Label>
                 {inputLabel} 
                 {
                     isRequired && <span className='required__asterisk'>*</span>
                 }
-            </label>
+            </Label>
         }
-        <input 
+        <Input 
             id={id}
             name={name}
             className={className}

@@ -54,9 +54,9 @@ export const ADMIN_MENU_LINKS = {
         },
         {
             id: randomNumber(),
-            title: 'My Store',
-            icon: 'bxs-shopping-bag-alt',
-            path: ''
+            title: 'Artist',
+            icon: 'bxs-palette',
+            path: '/admin/manage_artist'
         },
         {
             id: randomNumber(),

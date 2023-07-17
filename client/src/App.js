@@ -8,11 +8,12 @@ const Home = lazy(() => import('./pages/Home'))
 const Podcasts = lazy(() => import('./pages/Podcasts'))
 const AuthPage = lazy(() => import('./pages/Login'))
 const AdminHome = lazy(() => import('./pages/admin/AdminHome'))
+const ManageArtist = lazy(() => import('./pages/admin/artist'))
 
 const App = () => {
 
   const [isOpenSideMenu, setIsOpenSideMenu] = useState(false)
-  const [isAdmin] = useState(false)
+  const [isAdmin] = useState(true)
 
   const handleToggleSideMenu = useCallback(() => {
     setIsOpenSideMenu((prev) => !prev)
@@ -28,6 +29,7 @@ const App = () => {
           <Route path='/podcasts' element={<Podcasts />} />
           <Route path='/login' element={<AuthPage />} />
           <Route path='/admin/home' element={<AdminHome />} />
+          <Route path='/admin/manage_artist' element={<ManageArtist />} />
       </Routes>
       </div>
     </BrowserRouter>

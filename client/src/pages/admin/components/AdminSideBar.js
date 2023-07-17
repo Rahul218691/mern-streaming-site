@@ -19,7 +19,7 @@ const AdminSideBar = ({
             <ul className="side-menu top">
                 {
                     ADMIN_MENU_LINKS.commonList.map((item) => (
-                        <li className={`${location.pathname === item.path ? 'active' : ''}`}>
+                        <li className={`${location.pathname === item.path ? 'active' : ''}`} key={item.id}>
                             <Link to={item.path}>
                                 <i className={`bx ${item.icon}`}></i>
                                 <span className="text">{item.title}</span>
@@ -31,7 +31,7 @@ const AdminSideBar = ({
             <ul className="side-menu">
                 {
                     ADMIN_MENU_LINKS.settingsList.map((item) => (
-                        <li className={`${location.pathname === item.path ? 'active' : ''}`}>
+                        <li className={`${location.pathname === item.path ? 'active' : ''}`} key={item.id}>
                             <Link to={item.path}>
                                 <i className={`bx ${item.icon}`}></i>
                                 <span className="text">{item.title}</span>
