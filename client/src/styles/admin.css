@@ -141,7 +141,7 @@
 #content main .head-title {
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
+	justify-content: flex-end;
 	grid-gap: 16px;
 	flex-wrap: wrap;
 }
@@ -178,10 +178,14 @@
 	align-items: center;
 	grid-gap: 10px;
 	font-weight: 500;
+	outline: none;
+	border: none;
 }
 
 
-
+#content main .head-title .btn-download .text {
+	color: var(--light);
+}
 
 #content main .box-info {
 	display: grid;
@@ -381,6 +385,7 @@
 	border-radius: 20px;
 	background: var(--light);
 	padding: 24px;
+	margin-top: 15px;
 }
 
 .table__add__data .add__link__fields .form-label {

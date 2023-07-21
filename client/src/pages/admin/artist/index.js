@@ -1,7 +1,8 @@
 import React, { useState, useMemo, useCallback } from 'react'
 
 import TableView from 'components/tableView'
-import AdminWrapper from '../components/AdminWrapper'
+import ButtonComponent from 'components/ButtonComponent'
+import AdminWrapper from 'pages/admin/components/AdminWrapper'
 import CreateArtist from './createArtist'
 import { getColumnConfig } from './TableConfig'
 
@@ -33,6 +34,10 @@ const ArtistPage = () => {
 
   return (
     <AdminWrapper>
+        <ButtonComponent 
+          text="Import"
+          icon="bxs-file-import"
+        />
         {
           isShowAddScreen && <CreateArtist onCloseAddScreen={handleToggleAddScreen} />
         }

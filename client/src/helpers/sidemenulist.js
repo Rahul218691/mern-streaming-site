@@ -54,33 +54,27 @@ export const ADMIN_MENU_LINKS = {
         },
         {
             id: randomNumber(),
-            title: 'Artist',
+            title: 'Manage Artist',
             icon: 'bxs-palette',
-            path: '/admin/manage_artist'
+            path: '/admin/manage/artist'
         },
         {
             id: randomNumber(),
-            title: 'Analytics',
-            icon: 'bxs-doughnut-chart',
-            path: ''
+            title: 'Genre/Language',
+            icon: 'bxs-category',
+            path: '/admin/manage/genre/languages'
         },
         {
             id: randomNumber(),
-            title: 'My Store',
-            icon: 'bxs-shopping-bag-alt',
-            path: ''
+            title: 'Album',
+            icon: 'bxs-album',
+            path: '/admin/manage/album'
         },
         {
             id: randomNumber(),
             title: 'Message',
             icon: 'bxs-message-dots',
-            path: ''
-        },
-        {
-            id: randomNumber(),
-            title: 'Team',
-            icon: 'bxs-group',
-            path: ''
+            path: '/admin/notifications'
         }
     ],
     settingsList: [
