@@ -6,12 +6,13 @@ import Sidebar from 'components/Sidebar'
 
 const Home = lazy(() => import('pages/Home'))
 const Podcasts = lazy(() => import('pages/Podcasts'))
-const AuthPage = lazy(() => import('pages/Login'))
+const AuthPage = lazy(() => import('pages/auth/Login'))
 const AdminHome = lazy(() => import('pages/admin/AdminHome'))
 const ManageArtist = lazy(() => import('pages/admin/artist'))
 const ManageGenreAndLanguages = lazy(() => import('pages/admin/genre-and-languages'))
 const ManageAlbums = lazy(() => import('pages/admin/albums'))
 const NotFoundPage = lazy(() => import('pages/notfound'))
+const VerifyAccount = lazy(() => import('pages/auth/VerifyAccount'))
 
 const App = () => {
 
@@ -31,6 +32,7 @@ const App = () => {
           <Route path='/' element={<Home />} />
           <Route path='/podcasts' element={<Podcasts />} />
           <Route path='/login' element={<AuthPage />} />
+          <Route path='/verifyAccount' element={<VerifyAccount />} />
           <Route path='/admin/home' element={<AdminHome />} />
           <Route path='/admin/manage/artist' element={<ManageArtist />} />
           <Route path='/admin/manage/genre/languages' element={<ManageGenreAndLanguages />} />
