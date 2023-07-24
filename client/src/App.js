@@ -1,8 +1,13 @@
-import React, { lazy, useCallback, useState } from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import React, { lazy, useCallback, useEffect, useState, useContext } from 'react'
+import {Route, Routes, useLocation } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Header from 'components/Header'
 import Sidebar from 'components/Sidebar'
+import { AuthContext } from 'context/authContext';
+import { setDefaultAxiosConfig } from 'utils/axiosConfig';
+import { decryptData } from 'utils';
 
 const Home = lazy(() => import('pages/Home'))
 const Podcasts = lazy(() => import('pages/Podcasts'))
@@ -13,26 +18,63 @@ const ManageGenreAndLanguages = lazy(() => import('pages/admin/genre-and-languag
 const ManageAlbums = lazy(() => import('pages/admin/albums'))
 const NotFoundPage = lazy(() => import('pages/notfound'))
 const VerifyAccount = lazy(() => import('pages/auth/VerifyAccount'))
+const ForgotPassword = lazy(() => import('pages/auth/ForgotPassword')) 
 
 const App = () => {
 
+  const location = useLocation()
+  const {state, dispatch} = useContext(AuthContext)
+
+  const { access_token } = state
+
   const [isOpenSideMenu, setIsOpenSideMenu] = useState(false)
-  const [isAdmin] = useState(true)
+  const [isAdminRoute, setIsAdminRoute] = useState(false)
 
   const handleToggleSideMenu = useCallback(() => {
     setIsOpenSideMenu((prev) => !prev)
   }, [])
 
+  useEffect(() => {
+    if (location.pathname) {
+      const path = location.pathname
+      if (path.startsWith('/admin')) {
+        setIsAdminRoute(true)
+      } else {
+        setIsAdminRoute(false)
+      }
+    }
+  }, [location])
+
+  useEffect(() => {
+    if (access_token) {
+      setDefaultAxiosConfig(access_token)
+    }
+  }, [access_token])
+
+  useEffect(() => {
+    if (window.localStorage.getItem('isAuthorized') && window.localStorage.getItem('user')) {
+      const data = decryptData('user')
+      const filterData = ({ msg, ...rest }) => rest
+		  const payload = filterData(data)
+      dispatch({
+        type: 'LOG_IN_USER',
+        payload
+      })
+    }
+  }, [dispatch])
+
   return (
-    <BrowserRouter>
-      {!isAdmin && <Header onToggleSideMenu={handleToggleSideMenu} />}
+    <>
+      <ToastContainer />
+      {!isAdminRoute && <Header onToggleSideMenu={handleToggleSideMenu} />}
       <div className='mainBody'>
-        {!isAdmin && <Sidebar isOpen={isOpenSideMenu} onToggleSideMenu={handleToggleSideMenu} />}
+        {!isAdminRoute && <Sidebar isOpen={isOpenSideMenu} onToggleSideMenu={handleToggleSideMenu} />}
       <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/podcasts' element={<Podcasts />} />
           <Route path='/login' element={<AuthPage />} />
           <Route path='/verifyAccount' element={<VerifyAccount />} />
+          <Route path='/forgotPassword' element={<ForgotPassword />} />
           <Route path='/admin/home' element={<AdminHome />} />
           <Route path='/admin/manage/artist' element={<ManageArtist />} />
           <Route path='/admin/manage/genre/languages' element={<ManageGenreAndLanguages />} />
@@ -40,7 +82,7 @@ const App = () => {
           <Route path='*' element={<NotFoundPage />} />
       </Routes>
       </div>
-    </BrowserRouter>
+    </>
   )
 }
 

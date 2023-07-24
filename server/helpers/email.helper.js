@@ -1,20 +1,14 @@
 const nodemailer = require('nodemailer');
+const nodemailerSendgrid = require('nodemailer-sendgrid');
 
-let transporter = nodemailer.createTransport({
-	host:process.env.SMTP_HOST,
-	port:process.env.SMTP_PORT,
-	auth:{
-		user:process.env.NODEMAILER_USER,
-		pass:process.env.SENDING_BLUE_SMTP_KEY
-	}
-});
-
+const transporter = nodemailer.createTransport(nodemailerSendgrid({ 
+	apiKey: process.env.SENDGRID_API_KEY
+}));
 
 const send = (info) =>{
 	return new Promise(async(resolve,reject) =>{
 		try {
 			let result = await transporter.sendMail(info);
-			console.log(result);
 			resolve(result)
 		} catch(error) {
 			reject(error)
@@ -33,7 +27,7 @@ const emailProcessor = ({to,verification,type}) =>{
 				subject:'Rhythm-Deck Account verification',
 				text:'Please Click on the link to verify your account',
 				html:require('../utils/emailTemplate')({
-					verification:`${process.env.CLIENT_BASE_URL}/verifyAccount?verify=${verification}`,
+					verification:`${process.env.CLIENT_BASE_URL}/verifyAccount?token=${verification}&email=${to}`,
 					mailType:'verify account',
 					maildesc:'An request has been received from your mail to activate Rhythm-Deck account if not you please discard',
 					btntext:'Verify Account'

@@ -13,11 +13,13 @@ const corsOptions = {
     origin: process.env.CLIENT_BASE_URL
 }
 
-app.use(cors(corsOptions))
+app.use(cors())
 app.use(helmet())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
+
+app.use('/api', require('./routes/auth'))
 
 const PORT = process.env.PORT || 5000
 
