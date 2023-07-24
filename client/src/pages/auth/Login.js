@@ -22,51 +22,58 @@ const Login = () => {
 	const { dispatch } = useContext(AuthContext)
 	const [loginDetails, setLoginDetails] = useState(Object.assign({}, LOGIN_DETAILS))
 	const [registerDetails, setRegisterDetails] = useState(Object.assign({}, REGISTER_DETAILS))
+	const [loginLoading, setLoginLoading] = useState(false)
+	const [registerLoading, setRegisterLoading] = useState(false)
 
-	const handleSubmitLogin = useCallback(async(event) => {
+	const handleSubmitLogin = useCallback(async (event) => {
 		event.preventDefault()
 		try {
+			setLoginLoading(true)
 			const authUser = await UserLogin(loginDetails)
 			toast.success(authUser.msg)
 			dispatch({
 				type: 'LOG_IN_USER',
 				payload: authUser
 			})
+			setLoginLoading(false)
 		} catch (error) {
+			setLoginLoading(false)
 			toast.error(error.response.data.msg)
 		}
 	}, [loginDetails, dispatch])
 
-	const handleSubmitRegister = useCallback(async(event) => {
+	const handleSubmitRegister = useCallback(async (event) => {
 		event.preventDefault()
+		setRegisterLoading(true)
 		const filterData = ({ confirmPassword, ...rest }) => rest
 		const payload = filterData(registerDetails)
 		try {
 			const registerUser = await UserRegister(payload)
 			toast.success(registerUser.msg)
- 		} catch (error) {
+			setRegisterLoading(false)
+		} catch (error) {
+			setRegisterLoading(false)
 			toast.error(error.response.data.msg)
-		} 
+		}
 	}, [registerDetails])
 
 	const handleChangeLoginDetails = useCallback((event) => {
 		event.preventDefault()
 		const updatedDetails = Object.assign({}, loginDetails)
 		updatedDetails[event.target.id] = event.target.value
-    	setLoginDetails(updatedDetails)
+		setLoginDetails(updatedDetails)
 	}, [loginDetails])
 
 	const handleChangeRegisterDetails = useCallback((event) => {
 		event.preventDefault()
 		const updatedDetails = Object.assign({}, registerDetails)
 		updatedDetails[event.target.id] = event.target.value
-    	setRegisterDetails(updatedDetails)
+		setRegisterDetails(updatedDetails)
 	}, [registerDetails])
 
-  return (
-	<div className="auth_wrapper">  	
-		<input type="checkbox" id="chk" aria-hidden="true" />
-
+	return (
+		<div className="auth_wrapper">
+			<input type="checkbox" id="chk" aria-hidden="true" />
 			<div className="signup">
 				<form onSubmit={handleSubmitRegister}>
 					<label htmlFor="chk" aria-hidden="true">Sign up</label>
@@ -74,10 +81,9 @@ const Login = () => {
 					<input type="email" name="email" id="email" placeholder="Email" required value={registerDetails.email} onChange={handleChangeRegisterDetails} />
 					<input type="password" name="pswd" id="password" placeholder="Password" required value={registerDetails.password} onChange={handleChangeRegisterDetails} />
 					<input type="password" name="pswd1" id="confirmPassword" placeholder="Confirm Password" required value={registerDetails.confirmPassword} onChange={handleChangeRegisterDetails} />
-					<button type='submit'>Sign up</button>
+					<button type='submit' disabled={registerLoading}>{registerLoading ? 'Please wait...' : 'Sign up'}</button>
 				</form>
 			</div>
-
 			<div className="login">
 				<form onSubmit={handleSubmitLogin}>
 					<label htmlFor="chk" aria-hidden="true">Login</label>
@@ -86,11 +92,11 @@ const Login = () => {
 					<div className='forgot_user_link'>
 						<Link to='/forgotPassword'>Forgot Password?</Link>
 					</div>
-					<button type='submit'>Login</button>
+					<button type='submit' disabled={loginLoading}>{loginLoading ? 'Please wait...' : 'Login'}</button>
 				</form>
 			</div>
-	</div>
-  )
+		</div>
+	)
 }
 
 export default Login

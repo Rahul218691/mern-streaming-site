@@ -7,6 +7,7 @@ import Header from 'components/Header'
 import Sidebar from 'components/Sidebar'
 import { AuthContext } from 'context/authContext';
 import { setDefaultAxiosConfig } from 'utils/axiosConfig';
+import AuthRoute from 'customRoutes/AuthRoute';
 import { decryptData } from 'utils';
 
 const Home = lazy(() => import('pages/Home'))
@@ -72,7 +73,7 @@ const App = () => {
       <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/podcasts' element={<Podcasts />} />
-          <Route path='/login' element={<AuthPage />} />
+          <Route path='/login' element={<AuthRoute><AuthPage /></AuthRoute>} />
           <Route path='/verifyAccount' element={<VerifyAccount />} />
           <Route path='/forgotPassword' element={<ForgotPassword />} />
           <Route path='/admin/home' element={<AdminHome />} />
