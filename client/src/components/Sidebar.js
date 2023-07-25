@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState, memo } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 
 import { SideMenuList } from 'helpers/sidemenulist'
@@ -54,4 +54,4 @@ const Sidebar = ({
     )
 }
 
-export default Sidebar
+export default memo(Sidebar)

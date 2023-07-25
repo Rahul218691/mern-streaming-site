@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react'
+import React, { useCallback, useMemo, memo } from 'react'
 
 import Pagination from '../Pagination'
 import TableHeader from './TableHeader'
@@ -78,4 +78,4 @@ const TableView = ({
   )
 }
 
-export default TableView
+export default memo(TableView)
