@@ -80,3 +80,17 @@
     font-weight: bolder;
     z-index: 99;
   }
+
+  .stream_header {
+    border-bottom: 1px solid #ccc;
+  }
+
+  .previewImage {
+    width: 300px;
+    height: 300px;
+    object-fit: contain;
+  }
+
+  .stream__button {
+    z-index: 99;
+  }

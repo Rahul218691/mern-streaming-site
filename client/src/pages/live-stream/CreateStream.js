@@ -3,7 +3,7 @@ import { Button, Col, Form, Row } from 'reactstrap'
 import { toast } from 'react-toastify'
 
 import InputField from 'components/InputField'
-import { imageValidation, validateStreamDetails } from './helper'
+import { convertTime12to24, imageValidation, validateStreamDetails } from './helper'
 
 const INITIAL_DETAILS = {
   title: '',
@@ -48,6 +48,14 @@ const CreateStream = () => {
       return
     }
     setErrors({})
+    const timeConvert = convertTime12to24(streamDetails.streamTime)
+    const dateTime = `${streamDetails.streamDate} ${timeConvert}`
+    const epochTime = Math.floor(new Date(dateTime).getTime()/1000.0)
+    const payload = {
+      ...streamDetails,
+      streamExpiresAt: epochTime
+    }
+    console.log(payload)
   }, [streamDetails])
 
   const handleRemoveImage = useCallback(() => {
@@ -61,7 +69,7 @@ const CreateStream = () => {
 
   return (
     <div className='videos'>
-      <h2 className='text-center'>Create New Stream</h2>
+      <h2 className='text-center stream_header'>Create New Stream</h2>
       <Form onSubmit={handleCreateStream}>
         <Row>
           <Col md={6}>
@@ -172,12 +180,12 @@ const CreateStream = () => {
           {
             previewUrl && (
               <Col md={6} className='d-flex'>
-                <img src={previewUrl} alt='' className='img-fluid' />
+                <img src={previewUrl} alt='' className='previewImage' />
                 <span className='remove-icon' onClick={handleRemoveImage}>X</span>
               </Col>
             )
           }
-          <Button type='submit' color='primary'>Create Stream</Button>
+          <Button type='submit' color='primary' className='stream__button'>Create Stream</Button>
         </Row>
       </Form>
     </div>
