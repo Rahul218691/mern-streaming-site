@@ -70,3 +70,13 @@
     margin-bottom: 10px;
     color: rgb(3, 3, 3);
   }
+
+  .remove-icon {
+    position: relative;
+    color: crimson;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 50%;
+    font-weight: bolder;
+    z-index: 99;
+  }

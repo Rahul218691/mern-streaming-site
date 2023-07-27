@@ -1,5 +1,6 @@
 import React, { useCallback, useContext, useEffect, useState, memo } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
+import { Badge, Progress } from 'reactstrap'
 
 import { SideMenuList } from 'helpers/sidemenulist'
 import { AuthContext } from 'context/authContext'
@@ -16,9 +17,9 @@ const Sidebar = ({
     const { state } = useContext(AuthContext)
     const [isAuthenticated, setIsAuthenticated] = useState(false)
 
-    const handleUserLogout = useCallback(async() => {
+    const handleUserLogout = useCallback(async () => {
         const data = decryptData('user')
-        await userLogout(data.user.userSlug) 
+        await userLogout(data.user.userSlug)
         window.localStorage.removeItem('user')
         window.localStorage.removeItem('isAuthorized')
         window.location.reload()
@@ -46,10 +47,26 @@ const Sidebar = ({
                         <div className={`sidebar__category ${location.pathname === menu.path ? 'active' : ''}`} key={menu.id} onClick={() => handleRedirectToPage(menu)}>
                             <i className="material-icons">{menu.icon}</i>
                             <span>{menu.title}</span>
-                        </div>       
+                        </div>
                     ))
                 }
             </div>
+            <hr />
+            {
+                state.user && (
+                    <div className='sidebar__categories__footer'>
+                        <div className='sidebar__category__footer'>
+                            <span>Current Plan: <Badge color='info'>Free</Badge></span>
+                            <br />
+                            <span>Used 5 / 15 Live Stream</span>
+                            <Progress value={25} animated color='danger' className='plan__progress' />
+                            <button className='glow-on-hover' type='button'>
+                                Upgrade Plan
+                            </button>
+                        </div>
+                    </div>
+                )
+            }
         </div>
     )
 }

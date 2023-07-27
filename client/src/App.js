@@ -8,6 +8,7 @@ import Sidebar from 'components/Sidebar'
 import { AuthContext } from 'context/authContext';
 import { setDefaultAxiosConfig } from 'utils/axiosConfig';
 import AuthRoute from 'customRoutes/AuthRoute';
+import PrivateRoute from 'customRoutes/PrivateRoute';
 import { decryptData } from 'utils';
 
 const Home = lazy(() => import('pages/Home'))
@@ -20,6 +21,8 @@ const ManageAlbums = lazy(() => import('pages/admin/albums'))
 const NotFoundPage = lazy(() => import('pages/notfound'))
 const VerifyAccount = lazy(() => import('pages/auth/VerifyAccount'))
 const ForgotPassword = lazy(() => import('pages/auth/ForgotPassword')) 
+const LiveStreams = lazy(() => import('pages/live-stream')) 
+const CreateLiveStream = lazy(() => import('pages/live-stream/CreateStream'))
 
 const App = () => {
 
@@ -73,6 +76,7 @@ const App = () => {
       <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/podcasts' element={<Podcasts />} />
+          <Route path='/liveStream' element={<LiveStreams />} />
           <Route path='/login' element={<AuthRoute><AuthPage /></AuthRoute>} />
           <Route path='/verifyAccount' element={<VerifyAccount />} />
           <Route path='/forgotPassword' element={<ForgotPassword />} />
@@ -80,6 +84,7 @@ const App = () => {
           <Route path='/admin/manage/artist' element={<ManageArtist />} />
           <Route path='/admin/manage/genre/languages' element={<ManageGenreAndLanguages />} />
           <Route path='/admin/manage/album' element={<ManageAlbums />} />
+          <Route path='/create/new-stream' element={<PrivateRoute><CreateLiveStream /></PrivateRoute>} />
           <Route path='*' element={<NotFoundPage />} />
       </Routes>
       </div>

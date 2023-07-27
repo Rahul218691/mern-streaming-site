@@ -14,6 +14,7 @@ const InputField = ({
     className = '',
     autoComplete = 'off',
     errors={},
+    children,
     onChangeInput = () => { },
     ...props
 }) => {
@@ -38,7 +39,9 @@ const InputField = ({
             autoComplete={autoComplete}
             onChange={(e) => onChangeInput(e, id)}
             {...props}
-        />
+        >
+            {children}
+        </Input>
         {
             errors && <span className='error__message'>{errors[id]}</span>
         }

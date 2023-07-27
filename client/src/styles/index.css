@@ -96,6 +96,9 @@ a {
     width: 100%;
     margin-top: 70px;
   }
+  .sidebar__categories__footer {
+    bottom: 15%;
+  }
 }
 
 @media (max-width: 768px) {
@@ -111,7 +114,11 @@ a {
     display: inline;
     position: fixed;
     top: 4.4rem;
-    height: auto;
+    height: 100vh;
+  }
+
+  .sidebar__categories__footer {
+    bottom: 15%;
   }
 
   .loading__screen svg {
@@ -129,5 +136,8 @@ a {
   }
   .loading__screen svg {
     left: 35%;
+  }
+  .sidebar__categories__footer {
+    bottom: 15%;
   }
 }

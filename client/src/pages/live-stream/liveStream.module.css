@@ -1,0 +1,17 @@
+.create_stream_button {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+.create_stream_button button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.create_stream_button button i {
+    color: #fff;
+    margin-right: 5px;
+}
