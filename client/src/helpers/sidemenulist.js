@@ -88,7 +88,8 @@ export const ADMIN_MENU_LINKS = {
             id: randomNumber(),
             title: 'Logout',
             icon: 'bxs-log-out-circle',
-            path: ''
+            path: '',
+            isLogoutRoute: true
         }
     ]
 }

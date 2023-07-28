@@ -86,6 +86,7 @@ const activateAccount = async(req,res) =>{
 }
 
 const refreshUserToken = async(req,res) =>{
+	console.log(req)
 	try {
 		const { userId } = req.body
 		const userToken = await getUserRefreshToken(userId)

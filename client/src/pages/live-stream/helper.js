@@ -2,7 +2,8 @@ export const validateStreamDetails = ({
     title,
     description,
     streamDate,
-    streamTime,
+    streamStartTime,
+    streamEndTime,
     streamType,
     streamCost,
     streamPoster
@@ -18,8 +19,11 @@ export const validateStreamDetails = ({
     if (!streamDate) {
         errors['streamDate'] = 'Stream Date is required'
     }
-    if (!streamTime) {
-        errors['streamTime'] = 'Stream Time is required'
+    if (!streamStartTime) {
+        errors['streamStartTime'] = 'Stream Start Time is required'
+    }
+    if (!streamEndTime) {
+        errors['streamEndTime'] = 'Stream End Time is required'
     }
     if (!streamType) {
         errors['streamType'] = 'Stream Type is required'
@@ -57,4 +61,18 @@ export const convertTime12to24 = (time12h) => {
     }
   
     return `${hours}:${minutes}`;
+}
+
+export const streamPayload = (payload) => {
+    let formdata = new FormData();
+    formdata.append('title', payload.title)
+    formdata.append('description', payload.description)
+    formdata.append('streamDate', payload.streamDate)
+    formdata.append('streamStartTime', payload.streamStartTime)
+    formdata.append('streamEndTime', payload.streamEndTime)
+    formdata.append('streamType', payload.streamType)
+    formdata.append('streamCost', payload.streamCost)
+    formdata.append('streamPoster', payload.streamPoster)
+    formdata.append('streamExpiryAt', payload.streamExpiryAt)
+    return formdata
 }

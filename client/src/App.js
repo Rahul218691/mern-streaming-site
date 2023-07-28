@@ -9,6 +9,7 @@ import { AuthContext } from 'context/authContext';
 import { setDefaultAxiosConfig } from 'utils/axiosConfig';
 import AuthRoute from 'customRoutes/AuthRoute';
 import PrivateRoute from 'customRoutes/PrivateRoute';
+import AdminPrivateRoute from 'customRoutes/AdminPrivateRoute';
 import { decryptData } from 'utils';
 
 const Home = lazy(() => import('pages/Home'))
@@ -80,10 +81,10 @@ const App = () => {
           <Route path='/login' element={<AuthRoute><AuthPage /></AuthRoute>} />
           <Route path='/verifyAccount' element={<VerifyAccount />} />
           <Route path='/forgotPassword' element={<ForgotPassword />} />
-          <Route path='/admin/home' element={<AdminHome />} />
-          <Route path='/admin/manage/artist' element={<ManageArtist />} />
-          <Route path='/admin/manage/genre/languages' element={<ManageGenreAndLanguages />} />
-          <Route path='/admin/manage/album' element={<ManageAlbums />} />
+          <Route path='/admin/home' element={<AdminPrivateRoute><AdminHome /></AdminPrivateRoute>} />
+          <Route path='/admin/manage/artist' element={<AdminPrivateRoute><ManageArtist /></AdminPrivateRoute>} />
+          <Route path='/admin/manage/genre/languages' element={<AdminPrivateRoute><ManageGenreAndLanguages /></AdminPrivateRoute>} />
+          <Route path='/admin/manage/album' element={<AdminPrivateRoute><ManageAlbums /></AdminPrivateRoute>} />
           <Route path='/create/new-stream' element={<PrivateRoute><CreateLiveStream /></PrivateRoute>} />
           <Route path='*' element={<NotFoundPage />} />
       </Routes>

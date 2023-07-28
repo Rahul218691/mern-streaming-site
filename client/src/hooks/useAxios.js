@@ -1,8 +1,9 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import jwt_decode from "jwt-decode";
 import axios from 'axios'
 import dayjs from 'dayjs'
 import { AuthContext } from 'context/authContext';
+import { decryptData } from 'utils';
 
 export const BASE_URL = 'http://localhost:5000'
 
@@ -19,9 +20,11 @@ const useAxios = () => {
         const user = jwt_decode(state.access_token)
         const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1;
         if (!isExpired) return req
-        const { data } = await axios.post(`${BASE_URL}/api/refresh_token`, {
-            userId: state.user.userSlug
-        });
+        const userData = decryptData('user')
+        const payload = {
+            userId: userData.user.userSlug
+        }
+        const { data } = await axios.post(`${BASE_URL}/api/refresh_token`, payload);
         dispatch({
             type: 'LOG_IN_USER',
             payload: data

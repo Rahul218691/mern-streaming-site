@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
 import { ADMIN_MENU_LINKS } from 'helpers/sidemenulist'
+import { userLogout } from 'apiServices/auth'
+import { decryptData } from 'utils'
 
 const AdminSideBar = ({
     open,
@@ -9,6 +11,16 @@ const AdminSideBar = ({
 }) => {
 
     const location = useLocation()
+
+    const handleAdminLogout = useCallback(async(data) => {
+        if (data.isLogoutRoute) {
+            const data = decryptData('user')
+            await userLogout(data.user.userSlug)
+            window.localStorage.removeItem('user')
+            window.localStorage.removeItem('isAuthorized')
+            window.location.reload()
+        }
+    }, [])
 
     return (
         <section id="sidebar" className={`${!open ? 'hide' : ''}`} onClick={onToggleMenu}>
@@ -31,7 +43,9 @@ const AdminSideBar = ({
             <ul className="side-menu">
                 {
                     ADMIN_MENU_LINKS.settingsList.map((item) => (
-                        <li className={`${location.pathname === item.path ? 'active' : ''}`} key={item.id}>
+                        <li className={`${location.pathname === item.path ? 'active' : ''}`} key={item.id} 
+                            onClick={() => handleAdminLogout(item)}
+                        >
                             <Link to={item.path}>
                                 <i className={`bx ${item.icon}`}></i>
                                 <span className="text">{item.title}</span>

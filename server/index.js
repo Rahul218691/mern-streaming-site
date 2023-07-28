@@ -9,17 +9,18 @@ const connectDB = require('./config/db')
 const app = express()
 
 const corsOptions = {
-    credentials: true,
     origin: process.env.CLIENT_BASE_URL
 }
 
-app.use(cors())
+app.use(cors(corsOptions))
 app.use(helmet())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
+app.use(express.static('uploads'));
 
 app.use('/api', require('./routes/auth'))
+app.use('/api', require('./routes/stream'))
 
 const PORT = process.env.PORT || 5000
 

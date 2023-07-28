@@ -2,20 +2,25 @@ import React, { useCallback, useState } from 'react'
 import { Button, Col, Form, Row } from 'reactstrap'
 import { toast } from 'react-toastify'
 
+import useAxios from 'hooks/useAxios'
 import InputField from 'components/InputField'
-import { convertTime12to24, imageValidation, validateStreamDetails } from './helper'
+import { convertTime12to24, imageValidation, streamPayload, validateStreamDetails } from './helper'
+import { streamCreate } from 'apiServices/stream'
 
 const INITIAL_DETAILS = {
   title: '',
   description: '',
   streamDate: '',
-  streamTime: '',
+  streamStartTime: '',
+  streamEndTime: '',
   streamType: '',
   streamCost: '',
   streamPoster: null
 }
 
 const CreateStream = () => {
+
+  const api = useAxios()
 
   const [streamDetails, setStreamDetails] = useState(Object.assign({}, INITIAL_DETAILS))
   const [errors, setErrors] = useState({})
@@ -40,7 +45,7 @@ const CreateStream = () => {
     setStreamDetails(updatedDetails)
   }, [streamDetails, previewUrl])
 
-  const handleCreateStream = useCallback((event) => {
+  const handleCreateStream = useCallback(async(event) => {
     event.preventDefault()
     const validate = validateStreamDetails(streamDetails)
     if (!!Object.keys(validate).length) {
@@ -48,15 +53,26 @@ const CreateStream = () => {
       return
     }
     setErrors({})
-    const timeConvert = convertTime12to24(streamDetails.streamTime)
+    const timeConvert = convertTime12to24(streamDetails.streamEndTime)
     const dateTime = `${streamDetails.streamDate} ${timeConvert}`
     const epochTime = Math.floor(new Date(dateTime).getTime()/1000.0)
     const payload = {
       ...streamDetails,
-      streamExpiresAt: epochTime
+      streamExpiryAt: epochTime
     }
-    console.log(payload)
-  }, [streamDetails])
+    const postData = streamPayload(payload)
+
+    try {
+      const response = await streamCreate(api, postData)
+      setStreamDetails(Object.assign({}, INITIAL_DETAILS))
+      window.URL.revokeObjectURL(previewUrl)
+      setPreviewUrl(null)
+      toast.success(response.msg)
+    } catch (error) {
+      toast.error(error.response.data.msg)
+    }
+
+  }, [streamDetails, previewUrl, api])
 
   const handleRemoveImage = useCallback(() => {
     window.URL.revokeObjectURL(previewUrl)
@@ -116,15 +132,29 @@ const CreateStream = () => {
           </Col>
           <Col md={6}>
             <InputField
-              id="streamTime"
-              name='streamTime'
+              id="streamStartTime"
+              name='streamStartTime'
               isLabelRequired
               isRequired
               errors={errors}
               type='time'
               inputLabel='Stream Time'
               placeholder='stream time'
-              value={streamDetails.streamTime}
+              value={streamDetails.streamStartTime}
+              onChangeInput={handleChangeInput}
+            />
+          </Col>
+          <Col md={6}>
+            <InputField
+              id="streamEndTime"
+              name='streamEndTime'
+              isLabelRequired
+              isRequired
+              errors={errors}
+              type='time'
+              inputLabel='Stream End Time'
+              placeholder='stream end time'
+              value={streamDetails.streamEndTime}
               onChangeInput={handleChangeInput}
             />
           </Col>
