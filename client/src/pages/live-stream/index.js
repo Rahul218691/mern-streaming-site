@@ -25,10 +25,6 @@ const LiveStreams = () => {
         }
         <div className='videos__container'>
             <Item />
-            <Item />
-            <Item />
-            <Item />
-            <Item />
         </div>
     </div>
   )

@@ -4,7 +4,7 @@
     width: 230px;
     background-color: white;
     overflow-y: scroll;
-    z-index: 99;
+    /* z-index: 99; */
   }
   
   .sidebar__categories {

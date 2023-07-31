@@ -115,6 +115,7 @@ a {
     position: fixed;
     top: 4.4rem;
     height: 100vh;
+    z-index: 99;
   }
 
   .sidebar__categories__footer {

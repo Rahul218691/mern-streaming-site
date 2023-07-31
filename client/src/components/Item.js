@@ -1,22 +1,31 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { Link } from 'react-router-dom'
+import { dateFormat } from 'utils'
 
-const Item = () => {
+const Item = ({
+  data = {},
+  onClick = () => { }
+}) => {
+
+  const handleClickItem = useCallback(() => {
+    onClick(data)
+  }, [data, onClick])
+
   return (
-    <div className="video">
+    <div className="video" onClick={handleClickItem}>
     <div className="video__thumbnail">
-      <img src="https://img.youtube.com/vi/PpXUTUXU7Qc/maxresdefault.jpg" alt="" />
+      <img src={data.poster} alt="" />
     </div>
     <div className="video__details">
       <div className="author">
-        <img src="http://aninex.com/images/srvc/web_de_icon.png" alt="" />
+        <img src="http://aninex.com/images/srvc/web_de_icon.png" alt="" loading='lazy' />
       </div>
       <div className="title">
         <h3>
-          Top 5 Programming Languages to Learn in 2021 | Best Programming Languages to Learn
+          {data.name}
         </h3>
-        <Link to="/">FutureCoders</Link>
-        <span>10M Views • 3 Months Ago</span>
+        <Link to="/">{data.genre}</Link>
+        <span>{data.trackName} • {dateFormat(data.postedDate)}</span>
       </div>
     </div>
   </div>

@@ -24,6 +24,7 @@ const VerifyAccount = lazy(() => import('pages/auth/VerifyAccount'))
 const ForgotPassword = lazy(() => import('pages/auth/ForgotPassword')) 
 const LiveStreams = lazy(() => import('pages/live-stream')) 
 const CreateLiveStream = lazy(() => import('pages/live-stream/CreateStream'))
+const PlayList = lazy(() => import('pages/playlist/PlayList'))
 
 const App = () => {
 
@@ -79,6 +80,7 @@ const App = () => {
           <Route path='/podcasts' element={<Podcasts />} />
           <Route path='/liveStream' element={<LiveStreams />} />
           <Route path='/login' element={<AuthRoute><AuthPage /></AuthRoute>} />
+          <Route path='/playlist' element={<PlayList />} />
           <Route path='/verifyAccount' element={<VerifyAccount />} />
           <Route path='/forgotPassword' element={<ForgotPassword />} />
           <Route path='/admin/home' element={<AdminPrivateRoute><AdminHome /></AdminPrivateRoute>} />

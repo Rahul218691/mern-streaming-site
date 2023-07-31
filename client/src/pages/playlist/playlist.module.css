@@ -1,0 +1,42 @@
+.playlist_wrapper {
+    width: 100%;
+    padding: 15px 15px;
+    overflow-y: auto;
+}
+
+.playlistPoster {
+    width: 300px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.playerList {
+    left: 0 !important;
+    width: 100% !important;
+}
+
+.subtext {
+    font-weight: bold;
+}
+
+.play_all_btn {
+    margin-top: 0.5rem;
+    border: none;
+    outline: none;
+    background-color: crimson;
+    padding: 0.5rem;
+    color: #fff;
+    border-radius: 10px;
+}
+
+@media (max-width: 768px) {
+    .playlistPoster {
+        width: 100%;
+    }
+}
+
+@media (max-width: 941px) {
+    .playlistPoster {
+        width: 100%;
+    }
+}

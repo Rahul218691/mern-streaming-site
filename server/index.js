@@ -3,6 +3,7 @@ const express = require('express')
 const cors = require('cors')
 const helmet = require('helmet')
 const cookieParser = require('cookie-parser')
+const morgan = require('morgan')
 
 const connectDB = require('./config/db')
 
@@ -19,8 +20,13 @@ app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static('uploads'));
 
+if (process.env.NODE_ENV === "development") {
+    app.use(morgan('dev'))
+}
+
 app.use('/api', require('./routes/auth'))
 app.use('/api', require('./routes/stream'))
+app.use('/api', require('./routes/podcast'))
 
 const PORT = process.env.PORT || 5000
 
