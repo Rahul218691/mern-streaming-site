@@ -2,13 +2,22 @@ import React from 'react'
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 
-const AudioPlayerComponent = () => {
+const AudioPlayerComponent = ({
+  playerUrl = '',
+  playerRef,
+  onAudioPlay = () => { },
+  onPauseAudio = () => { }
+}) => {
     return (
         <AudioPlayer
-        src="http://commondatastorage.googleapis.com/codeskulptor-demos/DDR_assets/Kangaroo_MusiQue_-_The_Neverwritten_Role_Playing_Game.mp3"
+        ref={playerRef}
+        autoPlay
+        src={playerUrl}
+        customAdditionalControls={[]}
         showFilledVolume
-        showSkipControls
-        onPlay={e => console.log("onPlay")}
+        showSkipControls={true}
+        onPlay={onAudioPlay}
+        onPause={onPauseAudio}
       />
     )
 }

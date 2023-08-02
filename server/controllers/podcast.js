@@ -70,8 +70,9 @@ const getPodcastPlaylist = async(req, res) => {
 			const {rss} = json;
 			const {channel} = rss;
             const data = channel[0]
-            const extractData = data.item.map((res) => {
+            const extractData = data.item.map((res, index) => {
                 return {
+                    id: index + 1,
                     title: res.title[0],
                     audioHTTPUrl: res.enclosure ? res.enclosure[0]?.$.url : '',
                     audioSecureUrl: res['ppg:enclosureSecure'] ? res['ppg:enclosureSecure'][0]?.$.url : '',

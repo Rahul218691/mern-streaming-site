@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState, useRef } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { Col, Row } from 'reactstrap'
 import { toast } from 'react-toastify'
@@ -10,22 +10,29 @@ import { getColumnConfig } from './TableConfig'
 import { PLAYLIST_TYPES } from './config'
 import styles from './playlist.module.css'
 import { dateFormat } from 'utils'
+import AudioPlayerComponent from 'components/audio'
 
 const PlayList = () => {
 
   const navigate = useNavigate()
   const [ searchParams ] = useSearchParams()
+  const AudioPlayerRef = useRef()
 
   const [loading, setLoading] = useState(false)
   const [playlistDetails, setPlayListDetails] = useState({})
-
+  const [selected, setSelected] = useState(null)
+  const [isPlaying, setIsPlaying] = useState(false)
+ 
   const isSecureDomain = useMemo(() => {
     return window.location.protocol === "https:"
   }, [])
 
-  const columns = useMemo(() => {
-    return getColumnConfig({ isSecureDomain })
-  }, [isSecureDomain])
+  const playerUrl = useMemo(() => {
+    if (selected) {
+      return (isSecureDomain  && selected.audioSecureUrl) ? selected.audioSecureUrl : selected.audioHTTPUrl
+    }
+    return null
+  }, [selected, isSecureDomain])
 
   const handleFetchPlayListDetails = useCallback(async() => {
     try {
@@ -45,6 +52,24 @@ const PlayList = () => {
     }
   }, [navigate, searchParams])
 
+  const handlePlayAudio = useCallback(() => {
+    setIsPlaying(true)
+    if (AudioPlayerRef && AudioPlayerRef.current && AudioPlayerRef.current.audio) {
+      AudioPlayerRef.current.audio.current.play()
+    }
+  }, [])
+  const handlePauseAudio = useCallback(() => {
+    setIsPlaying(false)
+    if (AudioPlayerRef && AudioPlayerRef.current && AudioPlayerRef.current.audio) {
+      AudioPlayerRef.current.audio.current.pause()
+    }
+  }, [])
+
+  const handlePlaySelectedSong = useCallback((data) => {
+    setSelected(data)
+    handlePlayAudio()
+  }, [handlePlayAudio])
+
   useEffect(() => {
     handleFetchPlayListDetails()
     // eslint-disable-next-line 
@@ -56,6 +81,10 @@ const PlayList = () => {
     }
     // eslint-disable-next-line 
   }, [searchParams])
+
+  const columns = useMemo(() => {
+    return getColumnConfig({ isSecureDomain, selected, isPlaying, onPlaySelected: handlePlaySelectedSong, onPause: handlePauseAudio })
+  }, [isSecureDomain, selected, isPlaying, handlePlaySelectedSong, handlePauseAudio])
 
   if (loading) {
     return (
@@ -80,7 +109,7 @@ const PlayList = () => {
             <h2 className='mb-0'>{playlistDetails?.mainTitle}</h2>
             <span className={styles.subtext}>{playlistDetails?.items?.length} podcasts</span>
             <div>
-              <button className={styles.play_all_btn}><i className='bx bx-play'></i> Play Songs</button>
+              <button className={styles.play_all_btn}><i className='bx bx-play'></i> Play All</button>
             </div>
           </div>
           <section id="content" className={styles.playerList}>
@@ -91,6 +120,14 @@ const PlayList = () => {
               />
             </main>
           </section>
+          {
+            selected && <AudioPlayerComponent 
+              playerUrl={playerUrl}
+              playerRef={AudioPlayerRef}
+              onAudioPlay={handlePlayAudio}
+              onPauseAudio={handlePauseAudio}
+            />
+          }
         </Col>
       </Row>
     </div>

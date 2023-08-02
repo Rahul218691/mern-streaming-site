@@ -58,6 +58,10 @@ a {
   text-decoration: none;
 }
 
+.font_icons {
+  cursor: pointer;
+}
+
 @import url('./header.css');
 @import url('./sidebar.css');
 @import url('./item.css');
