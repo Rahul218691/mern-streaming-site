@@ -22,6 +22,7 @@ const PlayList = () => {
   const [playlistDetails, setPlayListDetails] = useState({})
   const [selected, setSelected] = useState(null)
   const [isPlaying, setIsPlaying] = useState(false)
+  const [currentIndex, setCurrentIndex] = useState(0)
  
   const isSecureDomain = useMemo(() => {
     return window.location.protocol === "https:"
@@ -67,6 +68,7 @@ const PlayList = () => {
 
   const handlePlaySelectedSong = useCallback((data) => {
     setSelected(data)
+    setCurrentIndex(data.id - 1)
     handlePlayAudio()
   }, [handlePlayAudio])
 
@@ -81,6 +83,28 @@ const PlayList = () => {
     }
     // eslint-disable-next-line 
   }, [searchParams])
+
+  const handlePlayNextSong = useCallback(() => {
+    setCurrentIndex((currentTrack) =>
+    currentTrack < playlistDetails.items.length - 1 ? currentTrack + 1 : 0
+  )
+  }, [playlistDetails])
+
+  const handlePlayPreviousSong = useCallback(() => {
+    setCurrentIndex((currentTrack) =>
+    currentTrack === 0 ? playlistDetails.items.length - 1 : currentTrack - 1
+  )
+  }, [playlistDetails])
+
+  useEffect(() => {
+    if (playlistDetails && playlistDetails.items && playlistDetails.items.length) {
+      setSelected(playlistDetails.items[currentIndex])
+      setIsPlaying(true)
+      if (AudioPlayerRef && AudioPlayerRef.current && AudioPlayerRef.current.audio) {
+        AudioPlayerRef.current.audio.current.play()
+      }
+    }
+  }, [currentIndex, playlistDetails])
 
   const columns = useMemo(() => {
     return getColumnConfig({ isSecureDomain, selected, isPlaying, onPlaySelected: handlePlaySelectedSong, onPause: handlePauseAudio })
@@ -126,6 +150,8 @@ const PlayList = () => {
               playerRef={AudioPlayerRef}
               onAudioPlay={handlePlayAudio}
               onPauseAudio={handlePauseAudio}
+              onPlayNext={handlePlayNextSong}
+              onPlayPrevious={handlePlayPreviousSong}
             />
           }
         </Col>
